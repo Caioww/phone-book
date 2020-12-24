@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/ui.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.8.2/angular-messages.min.js"></script>
@@ -18,13 +19,35 @@
     <script src="js/service/operadorasAPIService.js"></script>
     <script src="js/config/configValue.js"></script>
     <script src="js/service/serialGeneratorService.js"></script>
+    <script src="js/filters/nameFilter.js"></script>
+    <script src="js/filters/ellipsisFilter.js"></script>
+    <script src="js/directives/uiAlertDirective.js"></script>
+    <script src="js/directives/uiDateDirective.js"></script>
+    <script src="js/directives/uiAccordionDirective.js"></script>
 
 </head>
 
 <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
+
+        <ui-accordions>
+            <ui-accordion title="Accordion 1">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla justo diam, euismod vel arcu et, blandit
+                ornare quam. Vivamus euismod, sapien sit amet elementum accumsan, metus ligula molestie velit, a feugiat
+                ipsum dui ut orci. Aenean sollicitudin nec elit sit amet condimentum. Mauris quis odio sed elit posuere
+                vehicula.
+            </ui-accordion>
+            <ui-accordion title="Accordion 2">
+                Proin efficitur mi vitae elit aliquam, sed eleifend odio mattis. Aliquam nulla odio, suscipit nec dolor
+                egestas, vulputate ullamcorper ligula. Suspendisse posuere ornare ex, ac mollis neque sagittis et. Etiam
+                sagittis odio lectus, sit amet commodo arcu placerat ac.
+            </ui-accordion>
+        </ui-accordions>
+
         <h1>{{app}}</h1>
-        <h3 ng-bind="message"></h3>
+        <ui-alert title="Ops, aconteceu um problema!" message="error"></ui-alert>
+
+
         <input type="text" class="form-control" ng-model="busca" placeholder="O que você está buscando?" />
         <table ng-show="contatos.length > 0" class="table table-striped">
             <tr>
@@ -39,7 +62,7 @@
                 ng-repeat="contato in contatos | filter:{nome: busca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
                 <td><input type="checkbox" ng-model="contato.selecionado" /></td>
                 <td>{{contato.serial}}</td>
-                <td>{{contato.nome}}</td>
+                <td>{{contato.nome | name | ellipsis}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome}}</td>
                 <td>{{contato.data | date:'dd/MM/yyyy'}}</td>
@@ -52,6 +75,7 @@
                 ng-required="true" ng-minlength="10" />
             <input class="form-control" type="text" ng-model="contato.telefone" name="telefone"
                 placeholder="Insira o telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
+            <input class="form-control" type="text" ng-model="contato.data" name="data" placeholder="Data" ui-date />
             <select class="form-control" ng-model="contato.operadora"
                 ng-options="operadora.nome + ' ( ' + (operadora.preco | currency) + ' ) ' for operadora in operadoras | orderBy:'nome'">
                 <option value="">Selecione uma operadora</option>
