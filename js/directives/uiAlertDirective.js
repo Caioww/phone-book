@@ -3,8 +3,8 @@ angular.module("listaTelefonica").directive("uiAlert", function () {
         templateUrl: "views/alert.html",
         replace: true,
         scope: {
-            title="@",
-            message="="
+            title: "@",
+            message: "="
         }
     }
 });
