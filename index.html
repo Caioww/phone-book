@@ -22,13 +22,23 @@
 	<script src="js/config/routeConfig.js"></script>
 	<script src="js/filters/nameFilter.js"></script>
 	<script src="js/filters/ellipsisFilter.js"></script>
+	<script src="js/filters/upperFilter.js"></script>
 	<script src="js/directives/uiAlertDirective.js"></script>
 	<script src="js/directives/uiDateDirective.js"></script>
+	<script src="js/interceptors/timestampInterceptor.js"></script>
+	<script src="js/interceptors/errorInterceptor.js"></script>
+	<script src="js/interceptors/loadingInterceptor.js"></script>
+	<script src="js/config/interceptorConfig.js"></script>
 </head>
 
 <body>
-	<div ng-view></div>
-	<div ng-include="'view/footer.html'"></div>
+	<div class="jumbotron" ng-show="loading">
+		<h5>Carregando, por favor aguarde...</h5>
+	</div>
+	<div ng-hide="loading">
+		<div ng-view></div>
+		<div ng-include="'view/footer.html'"></div>
+	</div>
 </body>
 
 </html>
